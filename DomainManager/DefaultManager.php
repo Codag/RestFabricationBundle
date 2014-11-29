@@ -23,6 +23,10 @@ class DefaultManager {
         $this->entityName = $entityName;
     }
 
+    public function get($id){
+        return $this->entityManager->getRepository($this->entityName)->find($id);
+    }
+
     public function find($id){
         return $this->entityManager->getRepository($this->entityName)->find($id);
     }
