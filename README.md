@@ -9,8 +9,6 @@ This bundle provides an approach for rapid development of RESTful APIs for your 
 [![Latest Unstable Version](https://poser.pugx.org/codag/restfabrication-bundle/v/unstable.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
 [![License](https://poser.pugx.org/codag/restfabrication-bundle/license.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
 
-For further implementation examples please see also the following blog post: (coming soon).
-
 ## Installation
 
 1. Add CodagRestFabricationBundle to your composer.json
@@ -45,6 +43,8 @@ public function registerBundles()
 ```
 
 ## Usage
+
+For further implementation examples please see also the following blog post: (coming soon).
 
 ### Domain Manager
 
