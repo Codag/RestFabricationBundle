@@ -3,6 +3,7 @@ RestFabricationBundle
 
 This bundle provides an approach for rapid development of RESTful APIs for your Symfony2 Project.
 
+[![Build Status](https://travis-ci.org/Codag/RestFabricationBundle.svg?branch=master)](https://travis-ci.org/Codag/RestFabricationBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Codag/RestFabricationBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Codag/RestFabricationBundle/?branch=master)
 [![Total Downloads](https://poser.pugx.org/codag/restfabrication-bundle/downloads.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
 [![Latest Stable Version](https://poser.pugx.org/codag/restfabrication-bundle/v/stable.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
