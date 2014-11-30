@@ -175,7 +175,7 @@ Output:
 
 #### RestException
 
-For the sake of completeness this exception is a wrapper of the HttpException and may be extended in advance. 
+For the sake of completeness this exception is a wrapper of the HttpException and may be extended in the near future. 
 
 ##Contribute
 
