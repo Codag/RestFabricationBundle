@@ -51,7 +51,7 @@ public function registerBundles()
 The domain manager is a more abstract way to communicate with the data layer (e.g. Doctrine). As it takes an entity as an argument, the benefit will be high reusability.
 Each ressource should be represented by it's own domain manager that can be easily defined within the [service container](http://symfony.com/doc/current/book/service_container.html) (services.xml). 
 
-We therefore create a new services for all our ressources (entities) so that each time a new class of "codag_rest_fabrication.domain_manager.default.class" will be instatiated with the provided entity as an argument:
+We therefore create new services for all our ressources (entities) so that each time a new class of "codag_rest_fabrication.domain_manager.default.class" will be instatiated with the provided entity as an argument:
 
 ```php
 <service id="acme_api.domain_manager.myresource" class="%codag_rest_fabrication.domain_manager.default.class%">
@@ -59,7 +59,7 @@ We therefore create a new services for all our ressources (entities) so that eac
     <argument>AcmeApiBundle:Myresource</argument>
 </service>
 ```
-The newly created domain manager can now be used in a controller to prevent implementing duplicate code for action methods they represent simple restful (GET/DELETE) requests:
+The created domain manager can now be used in a controller to prevent implementing duplicate code for action methods they represent simple restful (GET/DELETE) requests:
 
 ```php
 public function getAction()
@@ -83,6 +83,54 @@ public function deleteAction(Request $request, $id) {
 As we can see, the domain manager provides methods to find one or multiple entires and can directly remove entires. Please refer to the code for the full implementation set. 
 
 ### Form Handler
+
+The form handler relies on the domain manager and provides processing of forms created during the process of an incoming PUT/POST request. 
+
+We therefore create new services for all our ressources (entities) they relie on forms so that each time a new class of "codag_rest_fabrication.form_handler.create_form.class" will be instatiated. As a single argument the resource related domain manager has to be provided:
+
+```php
+    <service id="acme_api.form_handler.myresource" class="%codag_rest_fabrication.form_handler.create_form.class%">
+        <argument type="service" id="acme_api.domain_manager.myresource" />
+    </service>
+```
+
+The created form manager can now be used in a controller to prevent implementing duplicate code for action methods they represent simple restful (PUT/POST) requests and have to be processed with forms:
+
+```php
+public function postAction(Request $request){
+    try {
+        $form = $this->createForm(new MyresourceType(), new Myresource(), array('method' => 'POST'));
+        $new = $this->get('acme_api.form_handler.myresource')->handle($form, $request);
+        
+        return $this->routeRedirectView('myresource_get', array('id' => $new->getId()), Codes::HTTP_CREATED);
+    }catch (InvalidFormException $exception) {
+        return $exception->getForm();
+    }
+}
+```
+
+```php
+public function putMenuItemsAction(Request $request, $id){
+    try {
+        $manager = $this->get('acme_api.domain_manager.myresource');
+        $formHandler = $this->get('acme_api.form_handler.myresource');
+
+        if (!($object = $manager->get($id))) {
+            $statusCode = Codes::HTTP_CREATED;
+            $form = $this->createForm(new MyresourceType(), new Myresource(), array('method' => 'POST'));
+        } else {
+            $statusCode = Codes::HTTP_NO_CONTENT;
+            $form = $this->createForm(new MyresourceType(), $object, array('method' => 'PUT'));
+        }
+
+        $object = $formHandler->handle($form, $request);
+        
+        return $this->routeRedirectView('myresource_get_menuitems', array('id' => $object->getId()), $statusCode);
+    } catch (InvalidFormException $exception) {
+        return $exception->getForm();
+    }
+}
+```
 
 ### Exceptions
 
