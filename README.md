@@ -62,23 +62,22 @@ We therefore create a new services for all our ressources (entities) so that eac
 The newly created domain manager can now be used in a controller to prevent implementing duplicate code for action methods they represent simple restful (GET/DELETE) requests:
 
 ```php
-    public function getAction()
-    {
-        return $this->get('acme_api.domain_manager.myresource')->findAll();
-    }
+public function getAction()
+{
+    return $this->get('acme_api.domain_manager.myresource')->findAll();
+}
 ```
 
 ```php
-    public function deleteAction(Request $request, $id) {
-        $manager = $this->get('acme_api.domain_manager.myresource');
-        $obj = $manager->find($id);
-        if(!$obj){
-            throw new RessourceNotFoundException('Myresource', $id);
-        }
-        $manager->delete($itemId);
-
-        return $this->routeRedirectView('myresource_all', array(), Codes::HTTP_NO_CONTENT);
+public function deleteAction(Request $request, $id) {
+    $manager = $this->get('acme_api.domain_manager.myresource');
+    $obj = $manager->find($id);
+    if(!$obj){
+        throw new RessourceNotFoundException('Myresource', $id);
     }
+    $manager->delete($itemId);
+    return $this->routeRedirectView('myresource_all', array(), Codes::HTTP_NO_CONTENT);
+}
 ```
 
 As we can see, the domain manager provides methods to find one or multiple entires and can directly remove entires. Please refer to the code for the full implementation set. 
