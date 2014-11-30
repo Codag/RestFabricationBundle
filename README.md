@@ -89,9 +89,9 @@ The form handler relies on the domain manager and provides processing of forms c
 We therefore create new services for all our ressources (entities) they relie on forms so that each time a new class of "codag_rest_fabrication.form_handler.create_form.class" will be instatiated. As a single argument the resource related domain manager has to be provided:
 
 ```php
-    <service id="acme_api.form_handler.myresource" class="%codag_rest_fabrication.form_handler.create_form.class%">
-        <argument type="service" id="acme_api.domain_manager.myresource" />
-    </service>
+<service id="acme_api.form_handler.myresource" class="%codag_rest_fabrication.form_handler.create_form.class%">
+    <argument type="service" id="acme_api.domain_manager.myresource" />
+</service>
 ```
 
 The created form manager can now be used in a controller to prevent implementing duplicate code for action methods they represent simple restful (PUT/POST) requests and have to be processed with forms:
@@ -134,6 +134,47 @@ public function putMenuItemsAction(Request $request, $id){
 
 ### Exceptions
 
+#### InvalidFormException
+
+To be able to deal with a clean error management, this exception can be used whenever a form is processed. The exception can be thrown during the process of the form handler. For validation purposes then exception will then be catched within the controller to finally return the form to the view. 
+
+Form Handler:
+```php
+if($form->isValid()){
+    ...
+}
+throw new InvalidFormException('Invalid submitted data', $form);
+```
+
+Controller:
+```php
+try {
+    ...
+} catch (InvalidFormException $exception) {
+    return $exception->getForm();
+}
+```
+
+#### RessourceNotFoundException
+
+To not constantly repeat yourself, this exception is a wrapper of the NotFoundHttpException that holds a standard sentence. In addition it takes the resource name as well as the value of the identifier.
+
+Controller:
+```php
+throw new RessourceNotFoundException('Myresource', $id);
+```
+
+Output:
+```json
+{
+  "code": 404,
+  "message": "Myresource not found with id: 123"
+}
+```
+
+#### RestException
+
+For the sake of completeness this exception is a wrapper of the HttpException and may be extended in advance. 
 
 ##Contribute
 
