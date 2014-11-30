@@ -75,7 +75,7 @@ public function deleteAction(Request $request, $id) {
     if(!$obj){
         throw new RessourceNotFoundException('Myresource', $id);
     }
-    $manager->delete($itemId);
+    $manager->delete($id);
     return $this->routeRedirectView('myresource_all', array(), Codes::HTTP_NO_CONTENT);
 }
 ```
@@ -110,7 +110,7 @@ public function postAction(Request $request){
 ```
 
 ```php
-public function putMenuItemsAction(Request $request, $id){
+public function putAction(Request $request, $id){
     try {
         $manager = $this->get('acme_api.domain_manager.myresource');
         $formHandler = $this->get('acme_api.form_handler.myresource');
@@ -125,7 +125,7 @@ public function putMenuItemsAction(Request $request, $id){
 
         $object = $formHandler->handle($form, $request);
         
-        return $this->routeRedirectView('myresource_get_menuitems', array('id' => $object->getId()), $statusCode);
+        return $this->routeRedirectView('myresource_get_all', array('id' => $object->getId()), $statusCode);
     } catch (InvalidFormException $exception) {
         return $exception->getForm();
     }
