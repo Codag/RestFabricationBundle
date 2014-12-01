@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManager;
 use Codag\RestFabricationBundle\Exception\RessourceNotFoundException;
 
 
-class DefaultManager {
+class DefaultManager implements DomainManagerInterface {
     protected $entityManager;
     protected $entityName;
 
@@ -31,7 +31,7 @@ class DefaultManager {
         return $this->entityManager->getRepository($this->entityName)->find($id);
     }
 
-    public function findOneBy($args){
+    public function findOneBy(array $args){
         $entity = $this->entityManager->getRepository($this->entityName)->findOneBy($args);
         if(!$entity){
             throw new RessourceNotFoundException('Entity');
@@ -39,7 +39,7 @@ class DefaultManager {
         return $entity;
     }
 
-    public function findBy($args){
+    public function findBy(array $args){
         $entity = $this->entityManager->getRepository($this->entityName)->findBy($args);
         if(!$entity){
             throw new RessourceNotFoundException('Entity');
