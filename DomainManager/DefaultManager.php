@@ -11,7 +11,7 @@
 namespace Codag\RestFabricationBundle\DomainManager;
 
 use Doctrine\ORM\EntityManager;
-use Codag\RestFabricationBundle\Exception\RessourceNotFoundException;
+use Codag\RestFabricationBundle\Exception\ResourceNotFoundException;
 
 
 class DefaultManager implements DomainManagerInterface {
@@ -34,7 +34,7 @@ class DefaultManager implements DomainManagerInterface {
     public function findOneBy(array $args){
         $entity = $this->entityManager->getRepository($this->entityName)->findOneBy($args);
         if(!$entity){
-            throw new RessourceNotFoundException('Entity');
+            throw new ResourceNotFoundException('Entity');
         }
         return $entity;
     }
@@ -42,7 +42,7 @@ class DefaultManager implements DomainManagerInterface {
     public function findBy(array $args){
         $entity = $this->entityManager->getRepository($this->entityName)->findBy($args);
         if(!$entity){
-            throw new RessourceNotFoundException('Entity');
+            throw new ResourceNotFoundException('Entity');
         }
         return $entity;
     }
@@ -64,7 +64,7 @@ class DefaultManager implements DomainManagerInterface {
     public function delete($id){
         $entity = $this->find($id);
         if(!$entity){
-            throw new RessourceNotFoundException('Entity', $id);
+            throw new ResourceNotFoundException('Entity', $id);
         }
         $this->entityManager->remove($entity);
         $this->entityManager->flush();

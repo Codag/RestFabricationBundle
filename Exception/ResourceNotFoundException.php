@@ -13,7 +13,7 @@ namespace Codag\RestFabricationBundle\Exception;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class RessourceNotFoundException extends NotFoundHttpException
+class ResourceNotFoundException extends NotFoundHttpException
 {
     protected $form;
 

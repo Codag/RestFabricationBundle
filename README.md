@@ -50,9 +50,9 @@ For further implementation examples please see also the following blog post: (co
 ### Domain Manager
 
 The domain manager is a more abstract way to communicate with the data layer (e.g. Doctrine). As it takes an entity as an argument, the benefit will be high reusability.
-Each ressource should be represented by it's own domain manager that can be easily defined within the [service container](http://symfony.com/doc/current/book/service_container.html) (services.xml). 
+Each resource should be represented by it's own domain manager that can be easily defined within the [service container](http://symfony.com/doc/current/book/service_container.html) (services.xml). 
 
-We therefore create new services for all our ressources (entities) so that each time a new class of "codag_rest_fabrication.domain_manager.default.class" will be instatiated with the provided entity as an argument:
+We therefore create new services for all our resources (entities) so that each time a new class of "codag_rest_fabrication.domain_manager.default.class" will be instatiated with the provided entity as an argument:
 
 ```php
 <service id="acme_api.domain_manager.myresource" class="%codag_rest_fabrication.domain_manager.default.class%">
@@ -74,7 +74,7 @@ public function deleteAction(Request $request, $id) {
     $manager = $this->get('acme_api.domain_manager.myresource');
     $obj = $manager->find($id);
     if(!$obj){
-        throw new RessourceNotFoundException('Myresource', $id);
+        throw new ResourceNotFoundException('Myresource', $id);
     }
     $manager->delete($id);
     return $this->routeRedirectView('myresource_all', array(), Codes::HTTP_NO_CONTENT);
@@ -87,7 +87,7 @@ As we can see, the domain manager provides methods to find one or multiple entir
 
 The form handler relies on the domain manager and provides processing of forms created during the process of an incoming PUT/POST request. 
 
-We therefore create new services for all our ressources (entities) they relie on forms so that each time a new class of "codag_rest_fabrication.form_handler.create_form.class" will be instatiated. As a single argument the resource related domain manager has to be provided:
+We therefore create new services for all our resources (entities) they relie on forms so that each time a new class of "codag_rest_fabrication.form_handler.create_form.class" will be instatiated. As a single argument the resource related domain manager has to be provided:
 
 ```php
 <service id="acme_api.form_handler.myresource" class="%codag_rest_fabrication.form_handler.create_form.class%">
@@ -156,13 +156,13 @@ try {
 }
 ```
 
-#### RessourceNotFoundException
+#### ResourceNotFoundException
 
 To not constantly repeat yourself, this exception is a wrapper of the NotFoundHttpException that holds a standard sentence. In addition it takes the resource name as well as the value of the identifier.
 
 Controller:
 ```php
-throw new RessourceNotFoundException('Myresource', $id);
+throw new ResourceNotFoundException('Myresource', $id);
 ```
 
 Output:
