@@ -20,8 +20,8 @@ class RessourceNotFoundException extends NotFoundHttpException
     public function __construct($entityName, $id = null, $form = null)
     {
         $message = $entityName . " not found";
-        if($id != null) {
-            $message .= "with identifier: " . $id;
+        if($id !== null) {
+            $message .= " with identifier: " . $id;
         }
         parent::__construct($message);
         $this->form = $form;
