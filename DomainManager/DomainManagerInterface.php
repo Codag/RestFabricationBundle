@@ -12,19 +12,6 @@ namespace Codag\RestFabricationBundle\DomainManager;
 
 interface DomainManagerInterface {
 
-    public function get($id);
-
-    public function find($id);
-
-    public function findOneBy(array $args);
-
-    public function findBy(array $args);
-
-    public function findAll();
-
     public function create($entity);
 
-    public function save($entity);
-
-    public function delete($id);
 } 
