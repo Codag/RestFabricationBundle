@@ -81,7 +81,7 @@ public function deleteAction(Request $request, $id) {
 }
 ```
 
-As we can see, the domain manager provides methods to find one or multiple entires and can directly remove entires. Please refer to the code for the full implementation set. 
+As we can see, the domain manager provides methods to find one or multiple entires and can directly remove entries. Please refer to the code for the full implementation set. 
 
 ### Form Handler
 
@@ -124,7 +124,7 @@ public function putAction(Request $request, $id){
             $form = $this->createForm(new MyresourceType(), $object, array('method' => 'PUT'));
         }
 
-        $object = $formHandler->handle($form, $request);
+        $object = $formHandler->handle($form, $request);
         
         return $this->routeRedirectView('myresource_get_all', array('id' => $object->getId()), $statusCode);
     } catch (InvalidFormException $exception) {
