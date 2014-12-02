@@ -10,15 +10,15 @@
 
 namespace Codag\RestFabricationBundle\Form\Handler;
 
+use Codag\RestFabricationBundle\DomainManager\DomainManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Codag\RestFabricationBundle\DomainManager\DefaultManager;
 use Codag\RestFabricationBundle\Exception\InvalidFormException;
 
 class CreateFormHandler {
     private $manager;
 
-    public function __construct(DefaultManager $manager){
+    public function __construct(DomainManagerInterface $manager){
         $this->manager = $manager;
     }
 
