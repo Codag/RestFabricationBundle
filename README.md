@@ -74,7 +74,7 @@ public function deleteAction(Request $request, $id) {
     $manager = $this->get('acme_api.domain_manager.myresource');
     $obj = $manager->find($id);
     if(!$obj){
-        throw new RessourceNotFoundException('Myresource', $id);
+        throw new ResourceNotFoundException('Myresource', $id);
     }
     $manager->delete($id);
     return $this->routeRedirectView('myresource_all', array(), Codes::HTTP_NO_CONTENT);
@@ -156,13 +156,13 @@ try {
 }
 ```
 
-#### RessourceNotFoundException
+#### ResourceNotFoundException
 
 To not constantly repeat yourself, this exception is a wrapper of the NotFoundHttpException that holds a standard sentence. In addition it takes the resource name as well as the value of the identifier.
 
 Controller:
 ```php
-throw new RessourceNotFoundException('Myresource', $id);
+throw new ResourceNotFoundException('Myresource', $id);
 ```
 
 Output:
