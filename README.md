@@ -9,6 +9,7 @@ This bundle provides an approach for rapid development of RESTful APIs for your 
 [![Latest Stable Version](https://poser.pugx.org/codag/restfabrication-bundle/v/stable.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/codag/restfabrication-bundle/v/unstable.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
 [![License](https://poser.pugx.org/codag/restfabrication-bundle/license.svg)](https://packagist.org/packages/codag/restfabrication-bundle)
+[![Dependency Status](https://www.versioneye.com/user/projects/547f52668674a4dff30002bf/badge.svg?style=flat)](https://www.versioneye.com/user/projects/547f52668674a4dff30002bf)
 
 ## Installation
 
@@ -49,7 +50,7 @@ For further implementation examples please see also the following blog post: (co
 
 ### Domain Manager
 
-The domain manager is a more abstract way to communicate with the data layer (e.g. Doctrine). As it takes an entity as an argument, the benefit will be high reusability.
+The domainn manager is a more abstract way to communicate with the data layer (e.g. Doctrine). As it takes an entity as an argument, the benefit will be high reusability.
 Each resource should be represented by it's own domain manager that can be easily defined within the [service container](http://symfony.com/doc/current/book/service_container.html) (services.xml). 
 
 We therefore create new services for all our resources (entities) so that each time a new class of "codag_rest_fabrication.domain_manager.default.class" will be instatiated with the provided entity as an argument:
